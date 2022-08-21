@@ -1,4 +1,8 @@
 /* Simple Responsive Framework. */
+h1 {
+font-size: 40px; 
+}
+
 .row {
   width: 100%;
 }
