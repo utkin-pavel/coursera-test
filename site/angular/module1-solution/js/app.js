@@ -11,6 +11,11 @@ function MyController($scope) {
 
   $scope.Check = function () {
 
+    if ($scope.list == "") {
+        $scope.result = "Please enter data first";
+     }
+
+    else {
     var countOfProduct = $scope.list.split(",").length;
 
     if (countOfProduct <= 3) {
@@ -20,6 +25,7 @@ function MyController($scope) {
       $scope.result ="Too much!";
     }
 
+  };
   };
 }
 
