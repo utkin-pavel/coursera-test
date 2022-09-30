@@ -31,8 +31,8 @@ function NarrowItDownController(MenuSearchService) {
 
   //narrowIt.seacrchTerm  = "";
 
-  list.Found = function () {
-    list.foundItems = MenuSearchService.getMatchedMenuItems(narrowIt.seacrchTerm);
+  list.Find = function () {
+    list.foundItems = MenuSearchService.getMatchedMenuItems(list.seacrchTerm);
 
   };
 
