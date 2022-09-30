@@ -9,7 +9,7 @@ angular.module('NarrowItDownApp', [])
 
 function FoundItems() {
   var ddo = {
-    templateUrl: 'List.html',
+    templateUrl: 'list.html',
     scope: {
       items: '<',
       myTitle: '@title',
@@ -17,7 +17,7 @@ function FoundItems() {
       onRemove: '&'
     },
     controller: NarrowItDownController,
-    controllerAs: 'list',
+    controllerAs: 'foundItems',
     bindToController: true
   };
 
