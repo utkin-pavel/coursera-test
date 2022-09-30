@@ -16,7 +16,6 @@ function foundItems() {
     },
     controller: FoundItemsDirectiveController,
     controllerAs: 'foundlist',
-    transclude: true,
     bindToController: true
   };
 
@@ -61,7 +60,6 @@ function MenuSearchService($http, ApiBasePath) {
 				      url: (ApiBasePath + '/menu_items.json')
 				    }).then(function (result) {
 		      var foundItems = result.data.menu_items.filter(function (item) {
-            console.log(item);
 		      	return item.description.indexOf(searchTerm) >=0;
 		      });
 		      return foundItems;
