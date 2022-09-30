@@ -4,16 +4,14 @@
 angular.module('NarrowItDownApp', [])
 .controller('NarrowItDownController', NarrowItDownController)
 .constant('ApiBasePath', "https://davids-restaurant.herokuapp.com/menu_items.json")
-.service('MenuSearchService', MenuSearchService);
-//.directive('foundItems', FoundItems);
+.service('MenuSearchService', MenuSearchService)
+.directive('foundItems', FoundItems);
 
 function FoundItems() {
   var ddo = {
     templateUrl: 'foundList.html',
     scope: {
-      items: '<',
-      myTitle: '@title',
-      badRemove: '=',
+      foundItems: '<',
       onRemove: '&'
     },
     controller: NarrowItDownController,
@@ -26,16 +24,27 @@ function FoundItems() {
 
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
-
   var list = this;
 
-  list.foundItems  = [];
 
-  list.Find = function () {
-    list.foundItems = MenuSearchService.getMatchedMenuItems(list.seacrchTerm, list.foundItems);
+  list.Find = function (searchTerm) {
+    var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
 
-    console.log(list.foundItems);
+    promise.then(function(items) {
+        if (items && items.length > 0) {
+            list.Message = '';
+            list.foundItems = items;
+        } else {
+            list.Message = 'Nothing found!';
+            list.foundItems = [];
+        }
+    });
+
   };
+
+  list.removeMenuItem = function(itemIndex) {
+      list.foundItems.splice(itemIndex, 1);
+  }
 
 }
 
@@ -43,7 +52,7 @@ MenuSearchService.$inject = ['$http', 'ApiBasePath'];
 function MenuSearchService($http, ApiBasePath) {
   var service = this;
 
-  service.getMatchedMenuItems = function (seacrchTerm, foundItems) {
+  service.getMatchedMenuItems = function (searchTerm) {
     return $http({
       method: "GET",
       url: (ApiBasePath)
@@ -51,12 +60,10 @@ function MenuSearchService($http, ApiBasePath) {
     // process result and only keep items that match
     var foundItems = [];
 
-    for (var element in result.data.menu_items) {
-     var item = result.data.menu_items[element];
-
-    if (item.name.includes(seacrchTerm)) {
-      foundItems.push(item);
-    }
+    for (var i = 0; i < response.data['menu_items'].length; i++) {
+        if (searchTerm.length > 0 && response.data['menu_items'][i]['description'].toLowerCase().indexOf(searchTerm) !== -1) {
+            foundItems.push(response.data['menu_items'][i]);
+        }
     }
 
     // return processed items
