@@ -16,6 +16,7 @@ function foundItems() {
     },
     controller: FoundItemsDirectiveController,
     controllerAs: 'foundlist',
+    transclude: true,
     bindToController: true
   };
 
