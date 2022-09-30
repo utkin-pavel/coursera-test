@@ -29,11 +29,12 @@ function NarrowItDownController(MenuSearchService) {
 
   var list = this;
 
-  //narrowIt.seacrchTerm  = "";
+  list.foundItems  = [];
 
   list.Find = function () {
-    list.foundItems = MenuSearchService.getMatchedMenuItems(list.seacrchTerm);
+    list.foundItems = MenuSearchService.getMatchedMenuItems(list.seacrchTerm, list.foundItems);
 
+    console.log(list.foundItems);
   };
 
 }
@@ -42,7 +43,7 @@ MenuSearchService.$inject = ['$http', 'ApiBasePath'];
 function MenuSearchService($http, ApiBasePath) {
   var service = this;
 
-  service.getMatchedMenuItems = function (seacrchTerm) {
+  service.getMatchedMenuItems = function (seacrchTerm, foundItems) {
     return $http({
       method: "GET",
       url: (ApiBasePath)
