@@ -17,7 +17,7 @@ function FoundItems() {
       onRemove: '&'
     },
     controller: NarrowItDownController,
-    controllerAs: 'foundItems',
+    controllerAs: 'list',
     bindToController: true
   };
 
@@ -27,12 +27,12 @@ function FoundItems() {
 NarrowItDownController.$inject = ['MenuSearchService'];
 function NarrowItDownController(MenuSearchService) {
 
-  var narrowIt = this;
+  var list = this;
 
   //narrowIt.seacrchTerm  = "";
 
-  narrowIt.Found = function () {
-    narrowIt.foundItems = MenuSearchService.getMatchedMenuItems(narrowIt.seacrchTerm);
+  list.Found = function () {
+    list.foundItems = MenuSearchService.getMatchedMenuItems(narrowIt.seacrchTerm);
 
   };
 
