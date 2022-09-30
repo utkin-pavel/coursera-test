@@ -27,8 +27,8 @@ function NarrowItDownController(MenuSearchService) {
   var list = this;
 
 
-  list.Find = function (searchTerm) {
-    var promise = MenuSearchService.getMatchedMenuItems(searchTerm);
+  list.Find = function () {
+    var promise = MenuSearchService.getMatchedMenuItems(list.searchTerm);
 
     promise.then(function(items) {
         if (items && items.length > 0) {
@@ -60,10 +60,11 @@ function MenuSearchService($http, ApiBasePath) {
     // process result and only keep items that match
     var foundItems = [];
 
-    for (var i = 0; i < response.data['menu_items'].length; i++) {
-        if (searchTerm.length > 0 && response.data['menu_items'][i]['description'].toLowerCase().indexOf(searchTerm) !== -1) {
-            foundItems.push(response.data['menu_items'][i]);
-        }
+    for (var i in result.data.menu_items) {
+      var item = result.data.menu_items[i];
+      if (searchTerm.length > 0 && item.description.toLowerCase().includes(searchTerm.toLowerCase())) {
+          foundItems.push(item);
+      }
     }
 
     // return processed items
