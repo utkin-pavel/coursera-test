@@ -16,6 +16,7 @@ function foundItems() {
     },
     controller: FoundItemsDirectiveController,
     controllerAs: 'foundlist',
+    transclude: true,
     bindToController: true
   };
 
@@ -59,9 +60,14 @@ function MenuSearchService($http, ApiBasePath) {
 				      method: 'GET',
 				      url: (ApiBasePath + '/menu_items.json')
 				    }).then(function (result) {
-		      var foundItems = result.data.menu_items.filter(function (item) {
-		      	return item.description.indexOf(searchTerm) >=0;
-		      });
+          var foundItems = [];
+          for (var i in result.data.menu_items)  {
+              var item = result.data.menu_items[i];
+              if (item.description.toLowerCase().includes(searchTerm.toLowerCase())) {
+                  foundItems.push(item);
+              }
+          }
+
 		      return foundItems;
 		  });
 	}
