@@ -1,0 +1,17 @@
+<h2>Your registration information</h2>
+<div ng-controller="MyInfoCtrl as myinfo">
+
+<div ng-hide="myinfo.isreg">
+<h3>You don't have an account. Please <a ui-sref="public.SignUp">sign up</a></h3>
+</div>
+
+<div ng-show="myinfo.isreg">
+<p>Your first name: {{ myinfo.user.firstname }}</p>
+<p>Your last name: {{ myinfo.user.lastname }}</p>
+<p>Your email: {{ myinfo.user.email }}</p>
+<h3>Your favorite category</h3>
+<p>Name:{{ myinfo.user.favCategory.name}}</p>
+<p>Description:{{ myinfo.user.favCategory.description}}</p>
+<img class="img-responsive" width="250" height="150" ng-src="{{myinfo.basePath}}/images/{{myinfo.user.favCategory.short_name}}.jpg" alt="{{myinfo.user.favCategory.name}}">
+</div>
+</div>

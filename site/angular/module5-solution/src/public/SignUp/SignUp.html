@@ -1,0 +1,77 @@
+<h3>Sign Up form</h3>
+<div ng-controller="RegistrationController as reg">
+<fieldset>
+  <form name='regForm' novalidate>
+    <input type="text" name="firstname" placeholder="Pick a first name"
+      ng-model="reg.user.firstname"
+      required
+      minlength="1"
+      ng-maxlength="255">
+      {{ reg.user.firstname }}
+      <span
+        ng-if="(regForm.firstname.$error.minlength || regForm.firstname.$error.required) && regForm.firstname.$touched">
+        firstname must be at least 1 characters long
+      </span>
+      <span ng-if="regForm.firstname.$error.maxlength && regForm.firstname.$touched">
+        firstname must not be longer than 255 characters
+      </span>
+      <br>
+      <input type="text" name="lastname" placeholder="Pick a last name"
+        ng-model="reg.user.lastname"
+        required
+        minlength="1"
+        ng-maxlength="255">
+        {{ reg.user.lastname }}
+        <span
+          ng-if="(regForm.lastname.$error.minlength || regForm.lastname.$error.required) && regForm.lastname.$touched">
+          lastname must be at least 1 characters long
+        </span>
+        <span ng-if="regForm.lastname.$error.maxlength && regForm.lastname.$touched">
+          lastname must not be longer than 255 characters
+        </span>
+        <br>
+
+    <input type="email" name="email" placeholder="Email"
+      ng-model="reg.user.email"
+      required>
+      <span ng-if="regForm.email.$invalid && regForm.email.$touched">
+        Must be a valid email address: handle@domain format
+      </span>
+      <br>
+
+    <input type="text" name="phone" placeholder="Phone ###-###-####"
+      ng-model="reg.user.phone"
+      pattern="(\d{3})-(\d{3})-(\d{4})">
+      <span ng-if="regForm.phone.$invalid && regForm.phone.$touched">
+        Phone must be in the format ###-###-####.
+      </span>
+      <br>
+
+      <input type="text" name="category" placeholder="Your favorite category"
+        ng-model="reg.user.category"
+        required
+        minlength="2"
+        ng-maxlength="3">
+        <span ng-if="regForm.category.$invalid && regForm.category.$touched">
+          Category must be L/B/NF and etc.
+        </span>
+      <br>
+
+    <button
+      ng-disabled="regForm.$invalid"
+      ng-click="reg.submit()">Submit</button>
+
+      <div style="margin-top: 10px;">
+        <p>Form valid:{{ regForm.$valid }}</p>
+        <p>Status:  {{ reg.status }}</p>
+        <h4><h4>
+        <div ng-show="reg.status==500" class="alert alert-warning" role="alert">
+        {{ reg.message }}
+       </div>
+       <div ng-show="reg.status==200" class="alert alert alert-success" role="alert">
+       {{ reg.message }}
+      </div>
+      </div>
+  </form>
+</fieldset>
+</div>
