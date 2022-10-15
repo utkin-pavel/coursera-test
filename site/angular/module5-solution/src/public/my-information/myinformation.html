@@ -12,6 +12,7 @@
 <h3>Your favorite category</h3>
 <p>Name:{{ myinfo.user.favCategory.name}}</p>
 <p>Description:{{ myinfo.user.favCategory.description}}</p>
+<p>Price:{{ myinfo.user.favCategory.price_large | currency}}</p>
 <img class="img-responsive" width="250" height="150" ng-src="{{myinfo.basePath}}/images/{{myinfo.user.favCategory.short_name}}.jpg" alt="{{myinfo.user.favCategory.name}}">
 </div>
 </div>

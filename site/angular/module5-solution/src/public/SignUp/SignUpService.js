@@ -33,7 +33,7 @@ function SignUpService($q, $timeout, ApiBasePath, $http, category) {
 service.getDetailOfCategory = function (userV) {
     var response = $http({
        method: "GET",
-       url: (ApiBasePath + userV.category + ".json")
+       url: (ApiBasePath + userV.category.touppercase() + ".json")
     });
 
     return response;
