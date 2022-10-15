@@ -19,7 +19,7 @@ function RegistrationController(SignUpService) {
 
       if (reg.status == 200 ) {
         SignUpService.saveData(response.data, reg.user);
-        reg.message = "Are you registered!";
+        reg.message = "You have successfully registered";
       }
 
     })
